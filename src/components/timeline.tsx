@@ -372,7 +372,7 @@ export function Timeline() {
 	}, [playingKey])
 
 	return (
-		<section ref={ref} className="relative min-h-screen flex items-center py-24 px-4 bg-gradient-to-b from-background to-secondary/30">
+		<section className="relative min-h-screen flex items-center py-24 px-4 bg-gradient-to-b from-background to-secondary/30">
 			
 			{/* Focused viewer shown when an item is clicked */}
 			{focused !== null && <FocusedViewer milestone={milestones[focused.index]} origin={focused.origin} onClose={closeFocused} />}
