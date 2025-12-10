@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card"
 import { Play, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState, useRef } from "react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 // ============================================================
 // 📸 JOURNEY MILESTONES - YOUR RELATIONSHIP TIMELINE
@@ -180,7 +181,8 @@ function FocusedViewer({
 	const images = milestone.images || (milestone.image ? [milestone.image] : [])
 	const [index, setIndex] = useState(0)
 	const [visible, setVisible] = useState(false)
-	const escHandlerRef = useRef<(e: KeyboardEvent) => void>()
+	// initialize with null so useRef has an initial value (TypeScript requirement)
+	const escHandlerRef = useRef<((e: KeyboardEvent) => void) | null>(null)
 	const [initialTransform, setInitialTransform] = useState<string>("translate(0px,0px) scale(0.86)")
 
 	useEffect(() => {
@@ -333,6 +335,8 @@ function FocusedViewer({
 // --- END FocusedViewer ---
 
 export function Timeline() {
+  	const { ref, isVisible } = useScrollAnimation()
+
 	// ...existing state...
 	const [mounted, setMounted] = useState(false)
 	// focused holds index and origin rect to animate from card -> modal
@@ -344,7 +348,6 @@ export function Timeline() {
 	const [playingKey, setPlayingKey] = useState<string | null>(null)
 
 	// NEW: track which video was activated (played at least once).
-	// This ensures pausing shows the paused frame (video) instead of reverting to poster.
 	const [activeKey, setActiveKey] = useState<string | null>(null)
 
 	const videoRefs = useRef<Array<HTMLVideoElement | null>>([])
@@ -353,12 +356,28 @@ export function Timeline() {
 		setMounted(true)
 	}, [])
 
+	// --- NEW: pause other videos when one starts playing ---
+	useEffect(() => {
+		if (!playingKey) return
+		videoRefs.current.forEach((v, i) => {
+			const key = `video-${i + 1}`
+			if (key !== playingKey && v && !v.paused) {
+				try {
+					v.pause()
+				} catch {
+					/* ignore pause errors */
+				}
+			}
+		})
+	}, [playingKey])
+
 	return (
-		<section className="relative min-h-screen flex items-center py-24 px-4 bg-gradient-to-b from-background to-secondary/30">
+		<section ref={ref} className="relative min-h-screen flex items-center py-24 px-4 bg-gradient-to-b from-background to-secondary/30">
+			
 			{/* Focused viewer shown when an item is clicked */}
 			{focused !== null && <FocusedViewer milestone={milestones[focused.index]} origin={focused.origin} onClose={closeFocused} />}
 			<div className="max-w-6xl mx-auto w-full">
-				<h2 className="font-cursive text-4xl md:text-6xl font-semibold text-center mb-4 text-primary text-balance">
+				<h2 className="font-cursive text-4xl md:text-6xl font-semibold text-center mb-4 text-primary text-balance" >
 					Our Journey Together
 				</h2>
 				<p className="text-center text-muted-foreground mb-16 text-lg">
@@ -466,7 +485,9 @@ export function Timeline() {
 							/>
 
 							<video
-								ref={(el) => (videoRefs.current[0] = el)}
+								ref={(el) => {
+									videoRefs.current[0] = el
+								}}
 								className="absolute inset-0 w-full h-full object-cover rounded-lg transform transition-opacity duration-420 will-change-opacity"
 								controls
 								controlsList="nodownload"
@@ -536,7 +557,9 @@ export function Timeline() {
 							/>
 
 							<video
-								ref={(el) => (videoRefs.current[1] = el)}
+								ref={(el) => {
+									videoRefs.current[1] = el
+								}}
 								className="absolute inset-0 w-full h-full object-cover rounded-lg transform transition-opacity duration-420 will-change-opacity"
 								controls
 								controlsList="nodownload"

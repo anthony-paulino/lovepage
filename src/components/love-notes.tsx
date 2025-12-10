@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Shuffle } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const loveNotes = [
   "You make every day feel like a celebration",
@@ -42,6 +43,7 @@ export function LoveNotes() {
   const [currentNote, setCurrentNote] = useState(loveNotes[0])
   const [fade, setFade] = useState(true)
   const [isFlipped, setIsFlipped] = useState(false)
+  const { ref, isVisible } = useScrollAnimation()
 
   const shuffleNote = () => {
     setIsFlipped(true)
@@ -53,14 +55,23 @@ export function LoveNotes() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-background to-secondary/20">
+    <section
+      ref={ref}
+      className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-background to-secondary/20"
+    >
       <div className="max-w-2xl w-full text-center">
-        <h2 className="font-cursive text-4xl md:text-6xl text-primary mb-2 text-balance">Little Love Notes</h2>
-        <div className="h-1 w-20 bg-primary mx-auto mb-8 rounded-full" />
+        <h2
+          className={`font-cursive text-4xl md:text-6xl text-primary mb-2 text-balance ${isVisible ? "animate-fade-in-down" : "opacity-0"}`}
+        >
+          Little Love Notes
+        </h2>
+        <div className={`h-1 w-20 bg-primary mx-auto mb-8 rounded-full ${isVisible ? "animate-scale-pulse" : ""}`} />
         <p className="text-muted-foreground mb-12 text-lg">Random thoughts that remind me of you</p>
 
         <Card
-          className={`relative p-8 md:p-12 bg-card shadow-lg border border-primary/10 mb-8 transition-all duration-300 ${isFlipped ? "scale-95 opacity-75" : "scale-100 opacity-100"}`}
+          className={`relative p-8 md:p-12 bg-card shadow-lg border border-primary/10 mb-8 transition-all duration-300 ${isFlipped ? "scale-95 opacity-75" : "scale-100 opacity-100"} ${
+            isVisible ? "animate-fade-in-up" : "opacity-0"
+          }`}
         >
           <div
             className={`transition-opacity duration-300 ${isFlipped ? "opacity-0" : "opacity-100"}`}
@@ -72,19 +83,34 @@ export function LoveNotes() {
           </div>
 
           <div className="flex justify-center gap-3 mt-6 text-primary/40">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4 animate-float"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              style={{ animationDelay: "0s" }}
+            >
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4 animate-float"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              style={{ animationDelay: "0.2s" }}
+            >
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4 animate-float"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              style={{ animationDelay: "0.4s" }}
+            >
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
           </div>
         </Card>
 
-        <Button onClick={shuffleNote} size="lg" className="gap-2">
+        <Button onClick={shuffleNote} size="lg" className="gap-2 hover:scale-105 transition-transform">
           <Shuffle className="w-5 h-5" />
           Shuffle Love Note
         </Button>

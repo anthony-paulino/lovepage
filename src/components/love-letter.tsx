@@ -2,22 +2,33 @@
 
 import { Card } from "@/components/ui/card"
 import { useEffect, useState } from "react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export function LoveLetter() {
   const [mounted, setMounted] = useState(false)
+  const { ref, isVisible } = useScrollAnimation()
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-secondary/30 to-background">
+    <section
+      ref={ref}
+      className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-secondary/30 to-background"
+    >
       <div
-        className={`max-w-3xl w-full transition-all duration-1000 delay-300 ${mounted ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+        className={`max-w-3xl w-full transition-all duration-1000 delay-300 ${
+          isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+        }`}
       >
-        <Card className="p-8 md:p-12 lg:p-16 bg-gradient-to-br from-card to-secondary/20 shadow-2xl border-2 border-primary/10">
+        <Card className="p-8 md:p-12 lg:p-16 bg-card shadow-2xl border-2 border-primary/10">
           <div className="text-center mb-8">
-            <svg className="w-12 h-12 mx-auto text-primary mb-4 drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-12 h-12 mx-auto text-primary mb-4 drop-shadow-sm animate-float"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
             <p className="font-cursive text-2xl md:text-3xl text-primary">Happy Anniversary, my love.</p>
@@ -46,19 +57,44 @@ export function LoveLetter() {
               <p className="font-cursive text-xl md:text-2xl text-foreground text-center mt-2">Anthony</p>
 
               <div className="flex justify-center gap-2 pt-6">
-                <svg className="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-primary animate-float"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  style={{ animationDelay: "0s" }}
+                >
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
-                <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-accent animate-float"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  style={{ animationDelay: "0.2s" }}
+                >
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
-                <svg className="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-primary animate-float"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  style={{ animationDelay: "0.4s" }}
+                >
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
-                <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-accent animate-float"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  style={{ animationDelay: "0.6s" }}
+                >
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
-                <svg className="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-primary animate-float"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  style={{ animationDelay: "0.8s" }}
+                >
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
               </div>

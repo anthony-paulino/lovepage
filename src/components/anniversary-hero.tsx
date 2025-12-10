@@ -20,10 +20,19 @@ const photos = [
 export function AnniversaryHero() {
   const [mounted, setMounted] = useState(false)
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
+  const [titleChars, setTitleChars] = useState<string[]>([])
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+ useEffect(() => {
+    const titleText = "One Year of Us"
+    if (mounted) {
+      const chars = titleText.split("")
+      setTitleChars(chars)
+    }
+  }, [mounted])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,11 +65,19 @@ export function AnniversaryHero() {
           </svg>
         </div>
 
-        {/* ============================================================ */}
-        {/* 📝 HERO TITLE - CUSTOMIZE IF NEEDED */}
-        {/* ============================================================ */}
-        <h1 className="font-cursive text-5xl md:text-7xl lg:text-8xl font-semibold text-primary mb-12 text-balance leading-tight">
-          One Year of Us
+        <h1 className="font-cursive text-5xl md:text-7xl lg:text-8xl font-semibold text-primary mb-9 text-balance leading-tight h-24 md:h-32 flex items-center justify-center">
+          {titleChars.map((char, index) => (
+            <span
+              key={index}
+              style={{
+                animation: `fade-in-down 0.6s ease-out forwards`,
+                animationDelay: `${index * 0.08}s`,
+                opacity: 0,
+              }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
         </h1>
 
         {/* ============================================================ */}
@@ -73,7 +90,7 @@ export function AnniversaryHero() {
         {/* ============================================================ */}
         {/* 📝 HERO Descriptions - CUSTOMIZE IF NEEDED */}
         {/* ============================================================ */}
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-5">
+        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-3">
           <div className="h-px w-12 bg-border" />
           <span className="font-light">December 7, 2024 - December 7, 2025</span>
           <div className="h-px w-12 bg-border" />
