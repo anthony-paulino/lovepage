@@ -83,7 +83,7 @@ const milestones = [
 		month: "",
 		title: "Photo Booth Memories",
 		description: "Silly faces, sweet kisses, and candid moments captured forever.",
-		images: ["/images/photo-booth-1.jpg", "/images/photo-booth-2.jpg", "/images/photo-booth-3.jpg"],
+		images: ["/images/photo-booth-1.JPG", "/images/photo-booth-2.jpg", "/images/photo-booth-3.JPG"],
 	},
 	{
 		month: "December 7 2024",
