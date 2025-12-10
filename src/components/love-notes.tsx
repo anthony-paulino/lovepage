@@ -19,7 +19,7 @@ const loveNotes = [
   "I love you more than coffee, and that's saying a lot",
   "You're the best decision I ever made",
   "My heart is perfect because you're inside",
-  "You're my happily ever after",
+  "You're my favorite kind of love story",
   "Every love story is beautiful, but ours is my favorite",
   "You're the missing piece I never knew I needed",
   "I love you to the moon and back",
@@ -41,28 +41,46 @@ const loveNotes = [
 export function LoveNotes() {
   const [currentNote, setCurrentNote] = useState(loveNotes[0])
   const [fade, setFade] = useState(true)
+  const [isFlipped, setIsFlipped] = useState(false)
 
   const shuffleNote = () => {
-    setFade(false)
+    setIsFlipped(true)
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * loveNotes.length)
       setCurrentNote(loveNotes[randomIndex])
-      setFade(true)
-    }, 200)
+      setIsFlipped(false)
+    }, 300)
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-background to-secondary/30">
+    <section className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-background to-secondary/20">
       <div className="max-w-2xl w-full text-center">
-        <h2 className="font-cursive text-4xl md:text-6xl text-primary mb-8 text-balance">Little Love Notes</h2>
+        <h2 className="font-cursive text-4xl md:text-6xl text-primary mb-2 text-balance">Little Love Notes</h2>
+        <div className="h-1 w-20 bg-primary mx-auto mb-8 rounded-full" />
         <p className="text-muted-foreground mb-12 text-lg">Random thoughts that remind me of you</p>
 
-        <Card className="p-8 md:p-12 bg-card shadow-xl border-2 border-primary/10 mb-8">
+        <Card
+          className={`relative p-8 md:p-12 bg-card shadow-lg border border-primary/10 mb-8 transition-all duration-300 ${isFlipped ? "scale-95 opacity-75" : "scale-100 opacity-100"}`}
+        >
           <div
-            className={`transition-opacity duration-200 ${fade ? "opacity-100" : "opacity-0"}`}
-            style={{ minHeight: "4rem" }}
+            className={`transition-opacity duration-300 ${isFlipped ? "opacity-0" : "opacity-100"}`}
+            style={{ minHeight: "6rem" }}
           >
-            <p className="text-xl md:text-2xl text-foreground leading-relaxed text-pretty font-medium">{currentNote}</p>
+            <p className="text-xl md:text-2xl text-foreground leading-relaxed text-pretty font-medium italic">
+              "{currentNote}"
+            </p>
+          </div>
+
+          <div className="flex justify-center gap-3 mt-6 text-primary/40">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
           </div>
         </Card>
 

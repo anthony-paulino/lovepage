@@ -10,17 +10,21 @@ interface Heart {
   delay: number
 }
 
+// add a small helper for stable unique ids
+const genUniqueId = () =>
+	typeof crypto !== "undefined" && "randomUUID" in crypto
+		? (crypto as any).randomUUID()
+		: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`
+
 export function FallingHearts() {
   const [hearts, setHearts] = useState<Heart[]>([])
   const [bgShift, setBgShift] = useState(false)
-  const [showMessage, setShowMessage] = useState(false)
 
   const createHeartBurst = () => {
-    // Create 20 hearts at once for burst effect
     const burstHearts: Heart[] = Array.from({ length: 20 }, () => ({
-      id: Date.now() + Math.random(),
+      id: genUniqueId(),
       left: Math.random() * 100,
-      animationDuration: 2 + Math.random() * 3,
+      animationDuration: 5 + Math.random() * 2,
       size: 15 + Math.random() * 25,
       delay: 0,
     }))
@@ -29,17 +33,15 @@ export function FallingHearts() {
 
     // Trigger background shift
     setBgShift(true)
-    setShowMessage(true)
 
-    // Remove hearts after animation
+    // Remove hearts after animation completes
     setTimeout(() => {
       setHearts((prev) => prev.filter((h) => !burstHearts.find((bh) => bh.id === h.id)))
-    }, 5000)
+    }, 7000)
 
-    // Reset background and message
+    // Reset background
     setTimeout(() => {
       setBgShift(false)
-      setShowMessage(false)
     }, 3000)
   }
 
@@ -62,19 +64,11 @@ export function FallingHearts() {
         style={{ zIndex: 30 }}
       />
 
-      {showMessage && (
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
-          <p className="font-cursive text-3xl md:text-5xl text-primary animate-fade-in text-center px-4 text-balance">
-            Every time you click, I fall for you again
-          </p>
-        </div>
-      )}
-
       {/* Falling hearts container */}
       <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
         {hearts.map((heart) => (
           <div
-            key={heart.id}
+            key={heart.id} // ensure stable unique key
             className="absolute animate-fall"
             style={{
               left: `${heart.left}%`,
@@ -108,27 +102,8 @@ export function FallingHearts() {
           }
         }
 
-        @keyframes fade-in {
-          0% {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1);
-          }
-          100% {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-        }
-
         .animate-fall {
           animation: fall linear forwards;
-        }
-
-        .animate-fade-in {
-          animation: fade-in 3s ease-in-out;
         }
       `}</style>
     </>

@@ -6,40 +6,35 @@ import { Music } from "lucide-react"
 export function MusicPlaylist() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-secondary/30 to-background">
-      <div className="max-w-2xl w-full text-center">
-        <h2 className="font-cursive text-4xl md:text-6xl text-primary mb-8 text-balance">Our Playlist</h2>
-        <p className="text-muted-foreground mb-12 text-lg">Songs that tell our story</p>
+      <div className="max-w-4xl w-full">
+        <div className="text-center mb-16">
+          <h2 className="font-cursive text-4xl md:text-6xl text-primary mb-4 text-balance">Our Playlist</h2>
+          <p className="text-muted-foreground text-lg">The soundtrack to our love story</p>
+        </div>
 
-        <Card className="p-8 md:p-12 bg-card shadow-xl border-2 border-primary/10">
-          <div className="flex flex-col items-center gap-6">
-            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-              <Music className="w-10 h-10 text-primary" />
-            </div>
-            <div>
-              <p className="text-lg text-foreground mb-2">Listen to our favorite songs together</p>
-              <p className="text-sm text-muted-foreground mb-6">
-                Replace this section with your Apple Music playlist embed or link
-              </p>
-            </div>
-
-            {/* Placeholder for Apple Music embed */}
-            <div className="w-full max-w-md aspect-square bg-secondary/30 rounded-lg flex items-center justify-center">
-              <div className="text-center text-muted-foreground p-8">
-                <Music className="w-16 h-16 mx-auto mb-4 text-primary/50" />
-                <p className="text-sm">Apple Music Playlist Embed Here</p>
-                <p className="text-xs mt-2">Get embed code from Apple Music and replace this placeholder</p>
+        <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 border-primary/20 hover:border-primary/40 transition-all">
+          <div className="space-y-6">
+            <div className="flex justify-center mb-8">
+              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                <Music className="w-8 h-8 text-primary-foreground" />
               </div>
             </div>
 
-            {/* Alternative: Direct link */}
-            {/* <a
-              href="YOUR_APPLE_MUSIC_PLAYLIST_URL"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              Open in Apple Music →
-            </a> */}
+            {/*<div className="text-center space-y-4">
+              <h3 className="font-cursive text-2xl text-primary">Share Our Playlist</h3>
+              <p className="text-muted-foreground">Enjoy the soundtrack of our love story below.</p>
+            </div> */}
+
+            <div className="bg-background rounded-lg p-8 min-h-80 flex items-center justify-center border border-border/50">
+              <iframe
+                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                frameBorder="0"
+                height="450"
+                style={{ width: "100%", maxWidth: "660px", overflow: "hidden", borderRadius: "10px" }}
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                src="https://embed.music.apple.com/us/playlist/amor/pl.u-mJy88gDtz3amRxX"
+              ></iframe>
+            </div>
           </div>
         </Card>
       </div>

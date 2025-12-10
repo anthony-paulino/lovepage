@@ -11,17 +11,17 @@ export function HeartbeatGame() {
   const [success, setSuccess] = useState(false)
   const [isPulsing, setIsPulsing] = useState(false)
   const [message, setMessage] = useState("")
+  const [isHovered, setIsHovered] = useState(false)
   const pulseIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (isPlaying && !success) {
-      // Start the heartbeat pulse
       setIsPulsing(true)
       pulseIntervalRef.current = setInterval(() => {
         setIsPulsing(false)
         setTimeout(() => setIsPulsing(true), 100)
-      }, 1000) // 60 BPM
+      }, 1000)
 
       return () => {
         if (pulseIntervalRef.current) {
@@ -34,12 +34,10 @@ export function HeartbeatGame() {
   const handleHeartClick = () => {
     if (!isPlaying || success) return
 
-    // Clear any existing timeout
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current)
     }
 
-    // Check if click is in sync (within 200ms of pulse)
     const newBeats = beats + 1
     setBeats(newBeats)
 
@@ -51,7 +49,6 @@ export function HeartbeatGame() {
         clearInterval(pulseIntervalRef.current)
       }
     } else {
-      // Reset if no click for 2 seconds
       clickTimeoutRef.current = setTimeout(() => {
         if (beats < targetBeats) {
           setBeats(0)
@@ -79,17 +76,20 @@ export function HeartbeatGame() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-secondary/30 to-background">
+    <section className="relative min-h-screen flex items-center justify-center px-4 py-24 bg-gradient-to-b from-secondary/20 to-background">
       <div className="max-w-2xl w-full text-center">
-        <h2 className="font-cursive text-4xl md:text-6xl text-primary mb-8 text-balance">Heartbeat Sync</h2>
+        <h2 className="font-cursive text-4xl md:text-6xl text-primary mb-2 text-balance">Heartbeat Sync</h2>
+        <div className="h-1 w-20 bg-primary mx-auto mb-8 rounded-full" />
         <p className="text-muted-foreground mb-12 text-lg">
           Can you click in rhythm with my heart? Get {targetBeats} beats in sync!
         </p>
 
-        <Card className="p-8 md:p-12 bg-card shadow-xl border-2 border-primary/10">
+        <Card className="p-8 md:p-12 bg-card shadow-lg border border-primary/10">
           {!isPlaying && !success && (
             <div>
-              <p className="text-muted-foreground mb-6">Click the heart button when it pulses to stay in sync</p>
+              <p className="text-muted-foreground mb-8 text-lg">
+                Click the heart button when it pulses to stay in sync
+              </p>
               <Button onClick={startGame} size="lg" className="gap-2">
                 Start Game
               </Button>
@@ -100,10 +100,12 @@ export function HeartbeatGame() {
             <div>
               <button
                 onClick={handleHeartClick}
-                className={`mx-auto mb-6 transition-transform duration-100 ${isPulsing ? "scale-125" : "scale-100"}`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className={`mx-auto mb-8 transition-all duration-100 ${isPulsing ? "scale-125" : "scale-100"} ${isHovered ? "animate-pulse" : "hover:scale-110"}`}
                 aria-label="Click in sync"
               >
-                <svg className="w-32 h-32 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-32 h-32 text-primary drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
               </button>
@@ -127,7 +129,11 @@ export function HeartbeatGame() {
 
           {success && (
             <div className="space-y-6">
-              <svg className="w-32 h-32 mx-auto text-primary animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-32 h-32 mx-auto text-primary animate-pulse drop-shadow-lg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
               <p className="font-cursive text-2xl md:text-3xl text-primary">{message}</p>
