@@ -67,7 +67,7 @@ const milestones = [
   },
   {
     id: "8",
-    month: "December 9, 2025",
+    month: "October 2025",
     title: "Our First Permanent Jewelry",
     description: "silver king and gold queen.",
     image: "/images/first-permanent-bracelets.jpg",
@@ -95,7 +95,7 @@ const milestones = [
   },
   {
     id: "12",
-    month: "June 2024",
+    month: "June 2025",
     title: "Our College Graduation",
     description: "One of our biggest accomplishment together so far.",
     images: ["/images/yami-graduation.jpg", "/images/ant-graduation.jpg"],
@@ -448,7 +448,10 @@ function MovingPicturesSection({ sectionVisible }: { sectionVisible: boolean }) 
                           setHoveredKey(video.key)
                         }}
                         aria-label={`Play ${video.title}`}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full bg-black/40 hover:bg-black/50 p-3 transition-all duration-300 hover:scale-110"
+                        className="hidden sm:flex items-center justify-center
+                          absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                          z-20 rounded-full bg-black/40 hover:bg-black/50
+                          p-3 transition-all duration-300 hover:scale-110"
                       >
                         <Play className="w-6 h-6 text-white" />
                       </button>
