@@ -1,8 +1,11 @@
 "use client"
 
+import type React from "react"
+
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react"
+import { ImageViewerModal } from "./image-viewer-modal"
 
 // ============================================================
 // 🖼️ HERO SLIDESHOW IMAGES - REPLACE WITH YOUR OWN PHOTOS
@@ -21,6 +24,8 @@ export function AnniversaryHero() {
   const [mounted, setMounted] = useState(false)
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
   const [titleChars, setTitleChars] = useState<string[]>([])
+  const [isViewerOpen, setIsViewerOpen] = useState(false)
+  const [viewerOrigin, setViewerOrigin] = useState<DOMRect | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -48,6 +53,14 @@ export function AnniversaryHero() {
 
   const prevPhoto = () => {
     setCurrentPhotoIndex((prev) => (prev - 1 + photos.length) % photos.length)
+  }
+
+  const openViewer = (e: React.MouseEvent) => {
+    const imgContainer = (e.currentTarget as HTMLElement).parentElement
+    if (imgContainer) {
+      setViewerOrigin(imgContainer.getBoundingClientRect())
+    }
+    setIsViewerOpen(true)
   }
 
   return (
@@ -91,7 +104,7 @@ export function AnniversaryHero() {
         </div>
 
         <div className="relative w-full max-w-lg mx-auto mb-6 sm:mb-8">
-          <div className="relative h-48 sm:h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative h-48 sm:h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl group">
             {photos.map((photo, index) => (
               <img
                 key={photo}
@@ -102,6 +115,15 @@ export function AnniversaryHero() {
                 }`}
               />
             ))}
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={openViewer}
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/80 hover:bg-white text-foreground rounded-full shadow-lg h-8 w-8 sm:h-10 sm:w-10 transition-all hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100"
+            >
+              <Maximize2 className="w-4 h-4 sm:w-5 sm:h-5" />
+            </Button>
 
             {/* Navigation arrows */}
             <Button
@@ -137,6 +159,14 @@ export function AnniversaryHero() {
           </div>
         </div>
       </div>
+
+      <ImageViewerModal
+        images={photos}
+        title="Our Anniversary"
+        isOpen={isViewerOpen}
+        onClose={() => setIsViewerOpen(false)}
+        origin={viewerOrigin}
+      />
 
       {/* Scroll indicator */}
       <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
