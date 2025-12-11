@@ -120,7 +120,13 @@ export function AnniversaryHero() {
               variant="ghost"
               size="icon"
               onClick={openViewer}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/80 hover:bg-white text-foreground rounded-full shadow-lg h-8 w-8 sm:h-10 sm:w-10 transition-all hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100"
+              className="absolute top-2 right-2 sm:top-3 sm:right-3
+              bg-white/80 hover:bg-white
+                text-foreground
+                rounded-full shadow-lg
+                h-8 w-8 sm:h-9 sm:w-9
+                transition-all hover:scale-110 active:scale-95
+                opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
             >
               <Maximize2 className="w-4 h-4 sm:w-5 sm:h-5" />
             </Button>
