@@ -11,13 +11,12 @@ export function useScrollAnimation() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
-          // Keep the animation triggered permanently
           observer.unobserve(entry.target)
         }
       },
       {
-        threshold: 0.2,
-        rootMargin: "0px 0px -100px 0px",
+        threshold: 0.15,
+        rootMargin: "50px 0px -50px 0px",
       },
     )
 

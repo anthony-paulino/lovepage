@@ -51,7 +51,7 @@ export function LoveNotes() {
       const randomIndex = Math.floor(Math.random() * loveNotes.length)
       setCurrentNote(loveNotes[randomIndex])
       setIsFlipped(false)
-    }, 300)
+    }, 250)
   }
 
   return (
@@ -66,10 +66,12 @@ export function LoveNotes() {
           Little Love Notes
         </h2>
         <div className={`h-1 w-20 bg-primary mx-auto mb-8 rounded-full ${isVisible ? "animate-scale-pulse" : ""}`} />
-        <p className="text-muted-foreground mb-12 text-lg">Random thoughts that remind me of you</p>
+        <p className={`text-muted-foreground mb-12 text-lg ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
+          Random thoughts that remind me of you
+        </p>
 
         <Card
-          className={`relative p-8 md:p-12 bg-card shadow-lg border border-primary/10 mb-8 transition-all duration-300 ${isFlipped ? "scale-95 opacity-75" : "scale-100 opacity-100"} ${
+          className={`relative p-6 sm:p-8 md:p-12 bg-card shadow-lg border border-primary/10 mb-8 transition-all duration-300 ${isFlipped ? "scale-95 opacity-75" : "scale-100 opacity-100"} ${
             isVisible ? "animate-fade-in-up" : "opacity-0"
           }`}
         >
@@ -77,7 +79,7 @@ export function LoveNotes() {
             className={`transition-opacity duration-300 ${isFlipped ? "opacity-0" : "opacity-100"}`}
             style={{ minHeight: "6rem" }}
           >
-            <p className="text-xl md:text-2xl text-foreground leading-relaxed text-pretty font-medium italic">
+            <p className="text-lg sm:text-xl md:text-2xl text-foreground leading-relaxed text-pretty font-medium italic">
               "{currentNote}"
             </p>
           </div>
@@ -110,7 +112,7 @@ export function LoveNotes() {
           </div>
         </Card>
 
-        <Button onClick={shuffleNote} size="lg" className="gap-2 hover:scale-105 transition-transform">
+        <Button onClick={shuffleNote} size="lg" className="gap-2 hover:scale-105 active:scale-95 transition-transform">
           <Shuffle className="w-5 h-5" />
           Shuffle Love Note
         </Button>

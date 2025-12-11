@@ -11,10 +11,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 // Recommended: 3-5 high-quality photos of you and your partner
 // Format: ["/path/to/image1.jpg", "/path/to/image2.jpg", ...]
 const photos = [
-  "/images/yanelis-30-bday.JPG",
-  "/images/ant-graduation.JPG",
+  "/images/yanelis-30-bday.jpg",
+  "/images/ant-graduation.jpg",
   "/images/first-dinner-in-DR.jpg",
-  "/images/resort-in-DR-2.JPG",
+  "/images/resort-in-DR-2.jpg",
 ]
 
 export function AnniversaryHero() {
@@ -26,7 +26,7 @@ export function AnniversaryHero() {
     setMounted(true)
   }, [])
 
- useEffect(() => {
+  useEffect(() => {
     const titleText = "One Year of Us"
     if (mounted) {
       const chars = titleText.split("")
@@ -55,9 +55,9 @@ export function AnniversaryHero() {
       <div
         className={`relative z-10 text-center max-w-4xl mx-auto transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       >
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <svg
-            className="w-16 h-16 mx-auto text-primary mb-6 animate-heart-float"
+            className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-primary mb-4 sm:mb-6 animate-heart-float"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -65,13 +65,13 @@ export function AnniversaryHero() {
           </svg>
         </div>
 
-        <h1 className="font-cursive text-5xl md:text-7xl lg:text-8xl font-semibold text-primary mb-9 text-balance leading-tight h-24 md:h-32 flex items-center justify-center">
+        <h1 className="font-cursive text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-semibold text-primary mb-6 sm:mb-9 text-balance leading-tight h-20 sm:h-24 md:h-32 flex items-center justify-center">
           {titleChars.map((char, index) => (
             <span
               key={index}
               style={{
-                animation: `fade-in-down 0.6s ease-out forwards`,
-                animationDelay: `${index * 0.08}s`,
+                animation: `fade-in-down 0.5s ease-out forwards`,
+                animationDelay: `${index * 0.07}s`,
                 opacity: 0,
               }}
             >
@@ -80,24 +80,18 @@ export function AnniversaryHero() {
           ))}
         </h1>
 
-        {/* ============================================================ */}
-        {/* 📝 HERO Descriptions - CUSTOMIZE IF NEEDED */}
-        {/* ============================================================ */}
-        <p className="text-lg md:text-2xl text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto mb-8 text-balance">
+        <p className="text-base sm:text-lg md:text-2xl text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8 text-balance">
           365 days of love, laughter, and endless memories
         </p>
 
-        {/* ============================================================ */}
-        {/* 📝 HERO Descriptions - CUSTOMIZE IF NEEDED */}
-        {/* ============================================================ */}
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-3">
-          <div className="h-px w-12 bg-border" />
+        <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
+          <div className="h-px w-8 sm:w-12 bg-border" />
           <span className="font-light">December 7, 2024 - December 7, 2025</span>
-          <div className="h-px w-12 bg-border" />
+          <div className="h-px w-8 sm:w-12 bg-border" />
         </div>
 
-        <div className="relative w-full max-w-lg mx-auto mb-8">
-          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+        <div className="relative w-full max-w-lg mx-auto mb-6 sm:mb-8">
+          <div className="relative h-48 sm:h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
             {photos.map((photo, index) => (
               <img
                 key={photo}
@@ -114,27 +108,27 @@ export function AnniversaryHero() {
               variant="ghost"
               size="icon"
               onClick={prevPhoto}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-foreground rounded-full shadow-lg"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-foreground rounded-full shadow-lg h-8 w-8 sm:h-10 sm:w-10 transition-all hover:scale-110 active:scale-95"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={nextPhoto}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-foreground rounded-full shadow-lg"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-foreground rounded-full shadow-lg h-8 w-8 sm:h-10 sm:w-10 transition-all hover:scale-110 active:scale-95"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
             </Button>
 
             {/* Slideshow indicators */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
               {photos.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentPhotoIndex(index)}
-                  className={`h-2 rounded-full transition-all ${
-                    index === currentPhotoIndex ? "bg-white w-6" : "bg-white/50 w-2"
+                  className={`h-1.5 sm:h-2 rounded-full transition-all ${
+                    index === currentPhotoIndex ? "bg-white w-6 sm:w-8" : "bg-white/50 w-2"
                   }`}
                   aria-label={`Go to photo ${index + 1}`}
                 />
@@ -145,9 +139,9 @@ export function AnniversaryHero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <svg
-          className="w-6 h-6 text-muted-foreground"
+          className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground"
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"
