@@ -106,14 +106,14 @@ const videos = [
   {
     key: "video-1",
     poster: "/images/video1.jpg",
-    src: "/images/video1.mp4",
+    src: "/images/video1.MOV",
     title: "Christmas Farm",
     description: "Mrs. Paulino with the hops.",
   },
   {
     key: "video-2",
     poster: "/images/video2.jpg",
-    src: "/images/video2.mp4",
+    src: "/images/video2.MOV",
     title: "Pumpkin Patch",
     description: "Mrs. Paulino becoming a bowling master.",
   },
