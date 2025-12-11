@@ -163,9 +163,9 @@ export function ImageViewerModal({ images, title, month, isOpen, onClose, origin
           </button>
 
           {/* Header Info */}
-          <div className="absolute top-4 sm:top-6 left-4 sm:left-6 right-16 sm:right-20 z-40">
-            <div className="text-center text-sm sm:text-base font-medium text-white drop-shadow-lg">{title}</div>
-            {month && <div className="text-center text-xs sm:text-sm text-white/80 mt-0.5 drop-shadow-lg">{month}</div>}
+          <div className="absolute top-4 sm:top-6 left-1/2 -translate-x-1/2 w-full max-w-xl px-4 z-40 text-center">
+            <div className="text-sm sm:text-base font-medium text-white drop-shadow-lg">{title}</div>
+            {month && <div className="text-xs sm:text-sm text-white/80 mt-0.5 drop-shadow-lg">{month}</div>}
           </div>
 
           {/* Image Counter */}
